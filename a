@@ -1,1 +1,179 @@
-
+#include<iostream>
+using namespace std;
+struct node
+{
+	int val;
+	struct node* next;
+	
+};
+struct node* head=NULL;
+void insertbeg(int n)
+{
+	struct node* newnode = new struct node;
+	newnode->val=n;
+	newnode->next=head;
+	head=newnode;
+}
+void insertend(int n)
+{
+	struct node*newnode = new struct node;
+	struct node *temp=head;
+	newnode->val=n;
+	newnode->next=NULL;
+	while(temp->next!=0)
+		temp=temp->next;
+	temp->next=newnode;
+	
+}
+void insertbef(int n,int bef)
+{
+	struct node*newnode = new struct node;
+	newnode->val=n;
+	struct node *temp1=head;
+	struct node *temp2=head;
+	temp2=temp2->next;
+	int f=0;
+	while (temp2->next!=0)
+	{
+		if (temp2->val==bef)
+		{
+			temp1->next=newnode;
+			newnode->next=temp2;
+			f=1;
+			break;
+		}
+		else
+		{
+			temp1=temp1->next;
+			temp2=temp2->next;
+		}
+	}
+	if (temp2->val==bef)
+	{
+		temp1->next=newnode;
+		newnode->next=temp2;
+		f=1;
+	}
+	if (f==0)
+		cout<<"Not found"<<endl;
+	else
+		cout<<"Inserted"<<endl;
+}
+void insertaft(int n,int aft)
+{
+	struct node*newnode = new struct node;
+	newnode->val=n;
+	int f=0;
+	struct node *temp=head;
+	while(temp->next!=0)
+	{
+		if (temp->val==aft)
+		{
+			newnode->next=temp->next;
+			temp->next=newnode;
+			f=1;
+			break;
+		}
+		else
+		temp=temp->next;
+	}
+	if (temp->val==aft)
+	{
+		newnode->next=temp->next;
+		temp->next=newnode;
+		f=1;
+	}
+	if (f==0)
+		cout<<"Not found"<<endl;
+	else
+		cout<<"Inserted"<<endl;
+}
+void del(int n)
+{
+	struct node *temp1=head;
+	struct node *temp2=head;
+	temp2=temp2->next;
+	int f=0;
+	while(temp2->next!=0)
+	{
+		if (temp2->val==n)
+		{
+			temp1->next=temp2->next;
+			f=1;
+			break;
+		}
+		else
+		{
+			temp1=temp1->next;
+			temp2=temp2->next;
+		}
+	}
+	if (temp2->val==n)
+		temp1->next=temp2->next;
+	if (f==0)
+		cout<<"Not found"<<endl;
+	else
+		cout<<"Deleted"<<endl;
+}
+void printlist()
+{
+	struct node* temp=head;
+	while(temp->next!=0)
+	{
+		cout<<temp->val<<endl;
+		temp=temp->next;
+	}
+	cout<<temp->val<<endl;
+}
+int main()
+{
+	int c;
+	do
+	{
+		cout<<"Enter choice:";
+		cin>>c;
+		if (c==1)
+		{
+			int n;
+			cout<<"Enter value:";
+			cin>>n;
+			insertbeg(n);
+		}
+		else if (c==2)
+		{
+			int n;
+			cout<<"Enter value:";
+			cin>>n;
+			insertend(n);
+		}
+		else if (c==3)
+		{
+			int n,bef;
+			cout<<"Enter value:";
+			cin>>n;
+			cout<<"Enter bef:";
+			cin>>bef;
+			insertbef(n,bef);
+		}
+		else if (c==4)
+		{
+			int n,aft;
+			cout<<"Enter value:";
+			cin>>n;
+			cout<<"Enter aft:";
+			cin>>aft;
+			insertaft(n,aft);
+		}
+		else if (c==5)
+		{
+			int n;
+			cout<<"Enter value:";
+			cin>>n;
+			del(n);
+		}
+		else if (c==6)
+			printlist();
+		else
+			cout<<"Invalid";
+	}while(c!=7);
+}
